@@ -1,0 +1,10 @@
+version: "3"
+services:
+
+  # Dockerfile bauen
+  terraform:
+    build: .
+    # erzeugte Konfigurationen mounten
+    volumes:
+      - ../out:/root/confs
+    

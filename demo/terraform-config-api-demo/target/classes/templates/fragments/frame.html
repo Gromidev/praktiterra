@@ -1,0 +1,73 @@
+<!--Vorlagen zum allgemeinen Gestalten der Webseite(n)-->
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Anlegen einer Terraform Konfiguration</title>
+    <style>
+      header {
+  border-bottom: 3px solid rgb(163,33,73);
+}
+      /* Default styles for all devices */
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        box-sizing: border-box;
+      }
+
+      /* Media queries for specific screen sizes */
+      @media only screen and (max-width: 768px) {
+        /* Styles for tablets */
+        body {
+          font-size: 14px;
+        }
+      }
+
+      @media only screen and (max-width: 480px) {
+        /* Styles for smartphones */
+        body {
+          font-size: 12px}}
+
+        </style>
+</head>
+<body>
+
+
+<!--Header-->
+<div th:fragment="header">
+
+    <img src="/Comlinebild.jpg" alt="a Logo">
+    <h1>mit wenigen Klicks zur fertigen Konfiguration</h1>
+    <p> Wilkommen </p>
+    <hr>
+
+</div>
+
+<!--Meldungen-->
+<div th:fragment="messages">
+    <!--Ein Abschnitt pro Meldung-->
+    <div th:each="message : ${messages}" th:switch="${message.level}">
+        <!--Fehler-->
+        <p th:case="error" th:text="'Fehler! ' + ${message.message}"></p>
+        <!--Hinweis-->
+        <p th:case="info" th:text="${message.message}"></p>
+    </div>
+    <!--Trennlinie, falls tatsächlich Meldungen angezeigt wurden -->
+    <hr th:if="${messages}">
+</div>
+
+<!--Footer-->
+<div th:fragment="footer">
+
+    <hr>
+    <p> A simple Footer </p>
+
+</div>
+
+
+</body>
+</html>

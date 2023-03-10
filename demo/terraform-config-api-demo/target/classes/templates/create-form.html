@@ -1,0 +1,76 @@
+<!--Webseite, die zum Konfigurieren einer neuen Terraform VM benutzt wird-->
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Terraform Config</title>
+    <style>
+        max-width:100%;height:auto;
+        header {
+    border-bottom: 3px solid rgb(163,33,73);
+  }
+        /* Default styles for all devices */
+        body {
+          font-family: Arial, sans-serif;
+          font-size: 16px;
+          line-height: 1.5;
+          box-sizing: border-box;
+        }
+  
+        /* Media queries for specific screen sizes */
+        @media only screen and (max-width: 768px) {
+          /* Styles for tablets */
+          body {
+            font-size: 14px;
+          }
+        }
+  
+        @media only screen and (max-width: 480px) {
+          /* Styles for smartphones */
+          body {
+            font-size: 12px}}
+  
+          </style>
+</head>
+<body>
+
+<!--Header-->
+<div th:replace="~{fragments/frame :: header}"></div>
+
+<!--Meldungen-->
+<div th:replace="~{fragments/frame :: messages}"></div>
+
+<!--Formular-->
+<div>
+    <p>Please select your options from below:</p>
+    <form method="post">
+        <!--Ein Abschnitt pro Option, Inhalt unterschiedlich je nach Typ-->
+        <div th:each="option : ${options}" th:switch="${option.type}">
+            <!--Text-Input-->
+            <div th:case="text">
+                <label th:for="${option.name}" th:text="${option.label} + ':'"></label>
+                <input type="text" th:name="${option.name}" th:id="${option.name}">
+            </div>
+
+            <!--Radio-Buttons-->
+            <div th:case="radio">
+                <p th:text="${option.label}+':'"></p>
+                <p th:each="choice,i : ${option.choices}">
+                    - <label th:for="${option.name}+'-'+${choice.name}" th:text="${choice.label}"></label>
+                    <input type="radio" th:name="${option.name}" th:id="${option.name}+'-'+${choice.name}"
+                           th:value="${choice.name}">
+                </p>
+            </div>
+        </div>
+        <input type="submit" value="Create">
+    </form>
+</div>
+
+<!--Footer-->
+<div th:replace="~{fragments/frame :: footer}"></div>
+
+</body>
+</html>
